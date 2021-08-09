@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="TreeAndChart.Views.ChartSelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TreeAndChart.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:viewModels="clr-namespace:TreeAndChart.ViewModel.Tree" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid >
+        <TreeView Background="Wheat" ItemsSource="{Binding Path=Leaves}" Grid.Row="1">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type viewModels:TitleItem}" ItemsSource="{Binding Path=Leaves}" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:LeafItem}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" />
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding Path=CommandToExecute}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </StackPanel>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:LeafItemFeedback}">
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Path=IsRunnig}" Margin="10,0,0,0"/>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding Path=CommandToExecute}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </StackPanel>
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>
+</UserControl>
