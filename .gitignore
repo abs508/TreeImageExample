@@ -54,5 +54,4 @@ dkms.conf
 # Folders
 bin
 obj
-packages
 .vs
